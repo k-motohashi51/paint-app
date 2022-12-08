@@ -19,7 +19,13 @@ class Canvas:
         self.f_canvas.pack(side = tk.LEFT, fill = tk.Y)
 
     def create_widgits(self):
-        self.w_canvas = tk.Canvas(self.f_canvas, bg = 'white')
+        self.w_canvas = tk.Canvas(self.f_canvas, bg = 'white', )
+        self.w_canvas.bind("<ButtonPress-1>",self.onlick,add="+")
+        self.w_canvas.bind("<ButtonRelease-1>",self.onlick,add="+")
         self.w_canvas.pack()
 
-    #def イベントハンドラ関数():
+    def onlick(self,event):
+        self.is_clicked = True
+
+    def release_click(self,event):
+        self.is_clicked = False
