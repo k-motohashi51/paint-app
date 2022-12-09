@@ -57,7 +57,7 @@ class Menu:
         #read_image = Image.open(file_name)
         #photo_image = tk.PhotoImage(image = read_image)
         #canvas_class.open_image_on_canvas(photo_image)
-        img = ImageTk.PhotoImage(file = "cat.png")
+        img = ImageTk.PhotoImage(file = file_name)
         canvas_class.open_image_on_canvas(img)
     
     def file_save_as(self, canvas_class, event = None):
@@ -75,6 +75,7 @@ class Canvas:
         self.color = "black"
         self.thickness = None
         self.mode = Mode.PEN
+        self.image = None
     
     def create_canvas(self, root):
         self.create_frame(root)
@@ -85,6 +86,7 @@ class Canvas:
         self.f_canvas.place(relx = 0.0, rely = 0.0, relwidth = 0.7, relheight = 1.0)
     
     def create_widgits(self):
+        print("created")
         self.w_canvas = tk.Canvas(self.f_canvas, bg = "white")
         self.w_canvas.place(relx = 0.0, rely = 0.1, relwidth = 1.0, relheight = 0.8)
         self.w_canvas.bind("<Button-1>", self.on_key_left)
@@ -109,12 +111,12 @@ class Canvas:
         self.w_canvas.postscript(file = file_name, colormode = "color")
     
     def open_image_on_canvas(self, img):
-        print("display img")
+        print("display Img:" , self.w_canvas.winfo_width()/2 , " : ", self.w_canvas.winfo_height()/2)
         #self.w_canvas.create_image(50, 50, image = img)
-        image = tk.PhotoImage(file = "/home/koichi/paint-app-solo/cat.png", width = 200, height = 200)
-        self.w_canvas.create_image(30, 30, image = image, anchor = tk.NW)
-    
-    # 無地の新しいキャンバスに遷移
+        self.image = self.image = img
+        self.w_canvas.create_image(0,0, image = self.image, anchor = tk.NW)
+
+        # 無地の新しいキャンバスに遷移
     def new_canvas(self):
         self.w_canvas.destroy()
         self.create_widgits()
